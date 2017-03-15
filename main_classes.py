@@ -9,9 +9,9 @@ class AdministrationUnit:
             comp_res = comp.get_results()
             for name in comp_res:
                 if name in results:
-                    results[name] += comp.results[name]
+                    results[name] += comp_res[name]
                 else:
-                    results[name] = comp.results[name]
+                    results[name] = comp_res[name]
         return results
 
     def get_max_voters(self):
@@ -45,6 +45,15 @@ class AdministrationUnit:
         return valid_votes
     def get_components(self):
         return self.components
+
+    def get_attendance(self):
+        return "%.2f" % (100 * self.get_total_votes() / self.get_max_voters())
+
+
+class Country(AdministrationUnit):
+    def __init__(self):
+        self.components = {}
+        self.name = ""
 
 
 class Voivodeship(AdministrationUnit):

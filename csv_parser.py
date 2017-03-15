@@ -1,7 +1,6 @@
 import csv
 from main_classes import *
 
-voivodeship_dict = {}
 
 def parse():
     voivodeship = 0
@@ -15,10 +14,21 @@ def parse():
     total_votes = 8
     invalid_votes = 9
     valid_votes = 10
+    shift = 11
 
     with open("pkw2000.csv") as csv_results:
-        next(csv_results, None)
         reader = csv.reader(csv_results)
+        voivodeship_dict = {}
+        candidates_dict = {}
+
+        first_row = next(reader)
+        for i in range(len(first_row) - shift):
+            candidates_dict[i + shift] = first_row[i + shift]
+
+        print(candidates_dict)
+        for key, name in candidates_dict.items():
+            parts = name.split()
+            candidates_dict[key] = parts[0] + " " + parts[1].title()
 
         for row in reader:
             commune = Commune()
@@ -31,6 +41,9 @@ def parse():
             commune.total_votes = int(row[total_votes])
             commune.invalid_votes = int(row[invalid_votes])
             commune.valid_votes = int(row[valid_votes])
+
+            for i in range(len(row) - shift):
+                commune.results[candidates_dict[i + shift]] = int(row[i + shift])
 
             if not row[voivodeship] in voivodeship_dict:
                 new_voivodeship = Voivodeship()
@@ -54,6 +67,8 @@ def parse():
             curr_distr = curr_const.components[row[district]]
 
             curr_distr.components[row[commune_name]] = commune
+        country = Country()
+        country.name = "Poland"
+        country.components = voivodeship_dict
 
-parse()
-print(voivodeship_dict["MAZOWIECKIE"].get_max_voters())
+        return country
