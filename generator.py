@@ -96,9 +96,10 @@ def generate_basic_info(country, env):
 def generate_country(country, env):
     template_index = env.get_template("index.html")
 
+    check_and_create_path("build")
+
     generate_basic_info(country, env)
 
-    check_and_create_path("build")
 
     with open("build/index.html", "w") as out:
         out.write(template_index.render(
