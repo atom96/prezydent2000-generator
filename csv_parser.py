@@ -25,7 +25,6 @@ def parse():
         for i in range(len(first_row) - shift):
             candidates_dict[i + shift] = first_row[i + shift]
 
-        print(candidates_dict)
         for key, name in candidates_dict.items():
             parts = name.split()
             candidates_dict[key] = parts[0] + " " + parts[1].title()

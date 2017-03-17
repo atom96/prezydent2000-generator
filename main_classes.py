@@ -47,7 +47,7 @@ class AdministrationUnit:
         return self.components
 
     def get_attendance(self):
-        return "%.2f" % (100 * self.get_total_votes() / self.get_max_voters())
+        return "%.2f" % (100 * self.get_given_cards() / self.get_max_voters())
 
 
 class Country(AdministrationUnit):
