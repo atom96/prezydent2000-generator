@@ -1,3 +1,7 @@
+from helper import escape_diacritics
+from helper import get_percentage
+
+
 class AdministrationUnit:
     def __init(self):
         self.components = {}
@@ -43,11 +47,24 @@ class AdministrationUnit:
         for comp in self.components.values():
             valid_votes += comp.get_valid_votes()
         return valid_votes
+
     def get_components(self):
         return self.components
 
     def get_attendance(self):
         return "%.2f" % (100 * self.get_given_cards() / self.get_max_voters())
+
+    def get_escaped_name(self):
+        return escape_diacritics(self.name).lower()
+
+    def get_sorted_results(self):
+        return sorted(self.get_results().items(), reverse=True, key=lambda x: x[1])
+
+    def get_sorted_by_name_res(self):
+        return sorted(self.get_results())
+
+    def get_percentage(self):
+        return get_percentage(self.get_results())
 
 
 class Country(AdministrationUnit):

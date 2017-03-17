@@ -9,50 +9,74 @@
 
 
 	<title>
-		Prezydent 2000 - województwo mazowieckie
+		Prezydent 2000 - województwo {{ voivodeship.name.lower() }}
 	</title>
 </head>
 
 <body>
 	<h1 class="main_title">
 			WYBORY PREZYDENTA RZECZYPOSPOLITEJ POLSKIEJ 2000
-		</h1>
+	</h1>
 
 	<h2 class="sub_title">
-			Województwo {{voivodeship.name}}
-		</h2>
+			Województwo {{ voivodeship.name.lower() }}
+	</h2>
 
 
 	<table class="poll_table">
 		<tbody>
 			<tr>
 				<td>Liczba uprawnionych do głosowania</td>
-				<td>{{voivodeship.get_max_voters()}}</td>
+				<td>{{ voivodeship.get_max_voters() }}</td>
 			</tr>
 			<tr>
 				<td>Liczba wydanych kart</td>
-				<td>{{voivodeship.get_given_cards()}}</td>
+				<td>{{ voivodeship.get_given_cards() }}</td>
 			</tr>
 			<tr>
 				<td>Liczba kart wyjętych z urny</td>
-				<td>{{voivodeship.get_total_votes()}}</td>
+				<td>{{ voivodeship.get_total_votes() }}</td>
 			</tr>
 			<tr>
 				<td>Liczba ważnych głosów</td>
-				<td>{{voivodeship.get_valid_votes()}}</td>
+				<td>{{ voivodeship.get_valid_votes() }}</td>
 			</tr>
 			<tr>
 				<td>Liczba wydanych kart</td>
-				<td>{{voivodeship.get_invalid_votes()}}</td>
+				<td>{{ voivodeship.get_invalid_votes() }}</td>
 			</tr>
 		</tbody>
 	</table>
 
 	<aside class="attendance">
-		Frekwencja - {{voivodeship.get_attendance()}}%
+		Frekwencja - {{ voivodeship.get_attendance() }}%
 	</aside>
 
-	</div>
+	<h2 class="sub_title">
+		Wyniki w okręgach:
+	</h2>
+	<table class="components_table">
+		<tr>
+			<td> Okręg </td>
+			<td> Wyniki </td>
+			<td> Frekwencja </td>
+		</tr>
+
+		{% for const in constituencies %}
+		<tr>
+			<td> <a href="../constituency/{{ const[1].get_escaped_name() }}.html"> Okręg nr {{ const[0] }} </a></td>
+			<td style="min-width: 8em">
+				{% for candidate in const[1].get_sorted_by_name_res() %}<div style="width: {{ const[1].get_percentage()[candidate] }}; height: 1em; background-color: {{ color[candidate] }}; display: inline-block;"></div>{% endfor %}
+			</td>
+
+			<td>
+				{{ const[1].get_attendance() }}%
+			</td>
+
+		</tr>
+		{% endfor %}
+	</table>
+
 
 	<table class="main_results_table">
 		<tr>
@@ -61,35 +85,20 @@
 			<td colspan="2"> Proporcja(%) </td>
 		</tr>
 
-		{%for candidate in results%}
+		{% for candidate in results %}
 		<tr>
-			<td class="name_in_table"> {{candidate[0]}} </td>
-			<td> {{candidate[1]}} </td>
+			<td class="name_in_table"> {{ candidate[0] }} </td>
+			<td> {{ candidate[1] }} </td>
 			<td>
-				<div style="height: 1em; background-color: pink; display: inline-block; width: 8em">
-					<div style="background-color:yellow; width: {{perc[candidate[0]]}}; height: 1em;"></div>
+				<div style="height: 1em; background-color: #ADBEFF; display: inline-block; width: 8em">
+					<div style="background-color:#001466; width: {{ perc[candidate[0]] }}; height: 1em;"></div>
 				</div>
 			</td>
-			<td>{{perc[candidate[0]]}}</td>
+			<td>{{ perc[candidate[0]] }}</td>
 		</tr>
-		{%endfor%}
+		{% endfor %}
 	</table>
 
-	<table class="components_table">
-		<tr>
-			<td> Powiat </td>
-			<td> Wyniki </td>
-		</tr>
-		</td>
-		<tr>
-			<td> <a href="districts/xdd.html"> Powiat xd </a></td>
-			<td>
-				<div style="width: 51%; height: 1em; background-color: black; display: inline-block;"></div>
-				<div style="width: 20%; height: 1em; background-color: pink; display: inline-block;"></div>
-			</td>
-		</tr>
-		</td>
-	</table>
 	<footer>
 		Copyright ⓒ 2017 - Arkadiusz Tomczak
 	</footer>

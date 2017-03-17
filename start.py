@@ -1,3 +1,3 @@
 from generator import generate
-generate()
 
+generate()
