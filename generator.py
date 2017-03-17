@@ -54,7 +54,7 @@ def generate_constituency(constituency, env, color):
             perc=constituency.get_percentage(),
             components=sorted(constituency.components.items()),
             color=color,
-            unit_type="okrąg nr",
+            unit_type="okręg nr",
             lower_unit="powiat",
             lower_unit_gen="powiatach",
             lower_catalog="district"
@@ -88,15 +88,9 @@ def generate_voivodeship(voivodeship, env, color):
 
 def generate_basic_info(country, env):
     template_stylesheet = env.get_template("stylesheet.css")
-    template_homepage = env.get_template("homepage_style.css")
-    template_admunit = env.get_template("admunit_style.css")
+    template_mobile = env.get_template("mobile_stylesheet.css")
+
     template_mapscript = env.get_template("map_script.js")
-
-    with open("build/admunit_style.css", "w") as out:
-        out.write(template_admunit.render())
-
-    with open("build/homepage_style.css", "w") as out:
-        out.write(template_homepage.render())
 
     with open("build/map_script.js", "w") as out:
         out.write(template_mapscript.render(
@@ -106,6 +100,8 @@ def generate_basic_info(country, env):
     with open("build/stylesheet.css", "w") as out:
         out.write(template_stylesheet.render())
 
+    with open("build/mobile_stylesheet.css", "w") as out:
+        out.write(template_mobile.render())
 
 def generate_country(country, env):
     template_index = env.get_template("index.html")

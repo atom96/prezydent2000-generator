@@ -1,0 +1,118 @@
+body {
+	background-color: #e4e4e4;
+	margin: 0;
+	padding: 0;
+}
+
+#visualization {
+	background: transparent;
+}
+
+#map_wrapper {
+	margin-top: -35px;
+}
+
+#map_wrapper_wrapper {
+	width: 300px;
+	height: 260px;
+	min-width: 325px;
+	overflow: visible;
+}
+
+.main_title {
+	color : #dfdbe1;
+	background-color: #454147;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	overflow: visible;
+	position: static;
+	min-width: 12em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.sub_title {
+	font-weight: bold;
+	text-align: center;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
+}
+
+.poll_table {
+	margin-left: 5em;
+	margin-right: 5em;
+	margin-bottom: 3em;
+}
+
+.poll_table tr,
+.poll_table td {
+	padding: 5px;
+}
+
+.attendance {
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+.second_row {
+	text-align: right;
+}
+
+footer {
+	background-color: #454147;
+	color : #dfdbe1;
+	text-align: right;
+	font-size: 10px;
+
+	padding-right: 7em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+
+}
+
+.main_results_table,
+.main_results_table_with_legend {
+	width: 100%;
+	padding-top: 1em;
+	padding-left: 5em;
+	padding-right: 5em;
+	text-align: center;
+}
+
+
+.name_in_table {
+	text-align: left;
+}
+
+.main_results_table  td,
+.main_results_table th
+.main_results_table_with_legend td,
+.main_results_table_with_legend th {
+	padding: 1em;
+	border-bottom: 1px solid black;
+}
+
+.columns_wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap-reverse;
+}
+
+.components_table td,
+.components_table th {
+	text-decoration: none;
+	padding: 0.4em;
+	text-align: center;
+}
+
+.lower_unit_results {
+	font-weight: bold;
+	text-align: center;
+	margin-top: 0.1em;
+	margin-bottom: 0.1em;
+}

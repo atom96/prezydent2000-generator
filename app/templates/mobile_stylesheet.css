@@ -1,0 +1,60 @@
+tr:nth-of-type(odd) {
+  background: #EEEEEE;
+}
+
+table, thead, tbody, th, td, tr {
+	display: block;
+}
+
+thead tr {
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+
+tr {
+	border: 1px solid #CCCCCC;
+}
+
+td {
+	border: none;
+	border-bottom: 1px solid #EEEEEE;
+	position: relative;
+	text-align: center;
+}
+
+td:before {
+	width: 45%;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	white-space: nowrap;
+}
+
+.second_row {
+	text-align: center;
+}
+
+.name_in_table {
+	text-align: center;
+}
+
+.main_results_table td:nth-of-type(2):before,
+.main_results_table_with_legend td:nth-of-type(2):before {
+	content: "Głosy ważne:";
+}
+
+.main_results_table td:nth-of-type(4):before {
+	content: "Wynik: ";
+}
+
+.main_results_table_with_legend td:nth-of-type(3):before {
+	content: "Kolor kandydata: ";
+}
+
+.main_results_table_with_legend td:nth-of-type(5):before {
+	content: "Wynik: ";
+}
+
+.components_table td:nth-of-type(3):before {
+	content: "Frekwencja: ";
+}
