@@ -5,49 +5,59 @@ from helper import generate_colors
 from helper import generate_attendance
 
 
-def generate_commune(commune, env):
-    template = env.get_template("commune.html")
+def generate_commune(commune, env, color):
+    template = env.get_template("component.html")
 
     check_and_create_path("build/commune")
 
     with open("build/commune/" + commune.get_escaped_name() + ".html", "w") as out:
         out.write(template.render(
-            comm=commune,
+            unit=commune,
             results=commune.get_sorted_results(),
             perc=commune.get_percentage(),
+            color=color,
+            unit_type="gmina"
         ))
 
 
 def generate_district(district, env, color):
-    template = env.get_template("district.html")
+    template = env.get_template("component.html")
 
     check_and_create_path("build/district")
 
     with open("build/district/" + district.get_escaped_name() + ".html", "w") as out:
         out.write(template.render(
-            dist=district,
+            unit=district,
             results=district.get_sorted_results(),
             perc=district.get_percentage(),
-            communes=sorted(district.components.items()),
-            color=color
+            components=sorted(district.components.items()),
+            color=color,
+            unit_type="powiat",
+            lower_unit="gmina",
+            lower_unit_gen="gminach",
+            lower_catalog="commune"
         ))
 
     for comm in district.components.values():
-        generate_commune(comm, env)
+        generate_commune(comm, env, color)
 
 
 def generate_constituency(constituency, env, color):
-    template = env.get_template("constituency.html")
+    template = env.get_template("component.html")
 
     check_and_create_path("build/constituency")
 
     with open("build/constituency/" + constituency.get_escaped_name() + ".html", "w") as out:
         out.write(template.render(
-            const=constituency,
+            unit=constituency,
             results=constituency.get_sorted_results(),
             perc=constituency.get_percentage(),
-            districts=sorted(constituency.components.items()),
-            color=color
+            components=sorted(constituency.components.items()),
+            color=color,
+            unit_type="okrąg nr",
+            lower_unit="powiat",
+            lower_unit_gen="powiatach",
+            lower_catalog="district"
         ))
 
     for dist in constituency.components.values():
@@ -55,17 +65,21 @@ def generate_constituency(constituency, env, color):
 
 
 def generate_voivodeship(voivodeship, env, color):
-    template = env.get_template("wojewodztwo.html")
+    template = env.get_template("component.html")
 
     check_and_create_path("build/voivodeship")
 
     with open("build/voivodeship/" + voivodeship.get_escaped_name() + ".html", "w") as out:
         out.write(template.render(
-            voivodeship=voivodeship,
+            unit=voivodeship,
             results=voivodeship.get_sorted_results(),
             perc=voivodeship.get_percentage(),
-            constituencies=sorted(voivodeship.components.items()),
-            color=color
+            components=sorted(voivodeship.components.items()),
+            color=color,
+            unit_type="województwo",
+            lower_unit="okręg",
+            lower_unit_gen="okręgach",
+            lower_catalog="constituency"
         ))
 
     for const in voivodeship.components.values():
