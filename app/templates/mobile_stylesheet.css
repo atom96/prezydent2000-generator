@@ -38,6 +38,14 @@ td:before {
 	text-align: center;
 }
 
+.main_results_table,
+.main_results_table_with_legend {
+	margin: 0 auto;
+	width: 100%;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
 .main_results_table td:nth-of-type(2):before,
 .main_results_table_with_legend td:nth-of-type(2):before {
 	content: "Głosy ważne:";

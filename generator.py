@@ -25,6 +25,8 @@ def generate_district(district, env, color):
 
     check_and_create_path("build/district")
 
+    generate_lower = not district.isLandDistr()
+    
     with open("build/district/" + district.get_escaped_name() + ".html", "w") as out:
         out.write(template.render(
             unit=district,
@@ -35,11 +37,13 @@ def generate_district(district, env, color):
             unit_type="powiat",
             lower_unit="gmina",
             lower_unit_gen="gminach",
-            lower_catalog="commune"
+            lower_catalog="commune",
+            generate_lower=generate_lower
         ))
 
-    for comm in district.components.values():
-        generate_commune(comm, env, color)
+    if not district.isLandDistr():
+        for comm in district.components.values():
+            generate_commune(comm, env, color)
 
 
 def generate_constituency(constituency, env, color):

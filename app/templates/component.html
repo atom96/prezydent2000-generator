@@ -13,108 +13,118 @@
 </head>
 
 <body>
+	<header>
 	<h1 class="main_title">
 			WYBORY PREZYDENTA RZECZYPOSPOLITEJ POLSKIEJ 2000
 	</h1>
+</header>
 
-	<h2 class="sub_title">
+	<section>
+
+		<h2 class="sub_title">
 			{{ unit_type.capitalize() }} {{ unit.name.lower() }}
 	</h2>
 
-	<section class="columns_wrapper">
-		{% if lower_unit is defined %}
-		<section class="lower_unit_data">
-			<h2 class="lower_unit_results">
-				Wyniki w {{ lower_unit_gen }}:
-			</h2>
+		<div class="columns_wrapper">
+			{% if lower_unit is defined and generate_lower != False %}
 
-			<table class="components_table">
-				<thead>
-					<tr>
-						<th> {{ lower_unit.capitalize() }} </th>
-						<th> Wyniki </th>
-						<th> Frekwencja </th>
-					</tr>
-				</thead>
+			<section class="lower_unit_data">
+				<h2 class="lower_unit_results">
+					Wyniki w {{ lower_unit_gen }}:
+				</h2>
+
+				<table class="components_table">
+					<thead>
+						<tr>
+							<th> {{ lower_unit.capitalize() }} </th>
+							<th> Wyniki </th>
+							<th> Frekwencja </th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for comp in components %}
+						<tr>
+							<td> <a href="../{{ lower_catalog }}/{{ comp[1].get_escaped_name() }}.html"> {{ lower_unit.capitalize() }} {{ comp[0] }} </a></td>
+							<td style="min-width: 4em">
+								{% for candidate in comp[1].get_sorted_results() %}<div style="width: {{ comp[1].get_percentage()[candidate[0]] }}; height: 1em; background-color: {{ color[candidate[0]] }}; display: inline-block;"></div>{% endfor %}
+							</td>
+
+							<td>
+								{{ comp[1].get_attendance() }}%
+							</td>
+
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</section>
+			{% endif %}
+			<table class="poll_table">
 				<tbody>
-					{% for comp in components %}
 					<tr>
-						<td> <a href="../{{ lower_catalog }}/{{ comp[1].get_escaped_name() }}.html"> {{ lower_unit.capitalize() }} {{ comp[0] }} </a></td>
-						<td style="min-width: 8em">
-							{% for candidate in comp[1].get_sorted_results() %}<div style="width: {{ comp[1].get_percentage()[candidate[0]] }}; height: 1em; background-color: {{ color[candidate[0]] }}; display: inline-block;"></div>{% endfor %}
-						</td>
-
-						<td>
-							{{ comp[1].get_attendance() }}%
-						</td>
-
+						<td>Liczba uprawnionych do głosowania</td>
+						<td class="second_row">{{ unit.get_max_voters() }}</td>
 					</tr>
-					{% endfor %}
+					<tr>
+						<td>Liczba wydanych kart</td>
+						<td class="second_row">{{ unit.get_given_cards() }}</td>
+					</tr>
+					<tr>
+						<td>Liczba kart wyjętych z urny</td>
+						<td class="second_row">{{ unit.get_total_votes() }}</td>
+					</tr>
+					<tr>
+						<td>Liczba ważnych głosów</td>
+						<td class="second_row">{{ unit.get_valid_votes() }}</td>
+					</tr>
+					<tr>
+						<td>Liczba wydanych kart</td>
+						<td class="second_row">{{ unit.get_invalid_votes() }}</td>
+					</tr>
 				</tbody>
 			</table>
-		</section>
-		{% endif %}
 
-		<table class="poll_table">
-			<tbody>
-				<tr>
-					<td>Liczba uprawnionych do głosowania</td>
-					<td class="second_row">{{ unit.get_max_voters() }}</td>
-				</tr>
-				<tr>
-					<td>Liczba wydanych kart</td>
-					<td class="second_row">{{ unit.get_given_cards() }}</td>
-				</tr>
-				<tr>
-					<td>Liczba kart wyjętych z urny</td>
-					<td class="second_row">{{ unit.get_total_votes() }}</td>
-				</tr>
-				<tr>
-					<td>Liczba ważnych głosów</td>
-					<td class="second_row">{{ unit.get_valid_votes() }}</td>
-				</tr>
-				<tr>
-					<td>Liczba wydanych kart</td>
-					<td class="second_row">{{ unit.get_invalid_votes() }}</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<aside class="attendance">
-			Frekwencja - {{ unit.get_attendance() }}%
-		</aside>
+			<aside class="attendance">
+				Frekwencja - {{ unit.get_attendance() }}%
+			</aside>
+		</div>
 	</section>
 
-	<table class="main_results_table_with_legend">
-		<thead>
-			<tr>
-				<th>Kandydat</th>
-				<th> Głosy ważne </th>
-				<th> Kolor kandydata </th>
-				<th colspan="2"> Proporcja(%) </th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for candidate in results %}
-			<tr>
-				<td class="name_in_table"> {{ candidate[0] }} </td>
-				<td> {{ candidate[1] }} </td>
-				<td>
-					<div style="background-color:{{ color[candidate[0]] }}; width: 1em; height: 1em; text-align: center; display: inline-block"> </div>
-				</td>
-				<td>
-					<div style="height: 1em; min-width: 8em; width: 100%; background-color: #ADBEFF; display: inline-block;">
-						<div style="background-color:{{ color[candidate[0]] }}; width: {{ perc[candidate[0]] }}; height: 1em;"></div>
-					</div>
-				</td>
-				<td>{{ perc[candidate[0]] }}</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<article>
+		<h2 class="lower_unit_results">
+				Wyniki poszczególnych kandydatów:
+		</h2>
+		<table class="main_results_table_with_legend">
+			<thead>
+				<tr>
+					<th>Kandydat</th>
+					<th> Głosy ważne </th>
+					<th> Kolor kandydata </th>
+					<th colspan="2"> Proporcja(%) </th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for candidate in results %}
+				<tr>
+					<td class="name_in_table"> {{ candidate[0] }} </td>
+					<td> {{ candidate[1] }} </td>
+					<td>
+						<div style="background-color:{{ color[candidate[0]] }}; width: 1em; height: 1em; text-align: center; display: inline-block"> </div>
+					</td>
+					<td>
+						<div style="height: 1em; min-width: 4em; width: 100%; background-color: #ADBEFF; display: inline-block;">
+							<div style="background-color:{{ color[candidate[0]] }}; width: {{ perc[candidate[0]] }}; height: 1em;"></div>
+						</div>
+					</td>
+					<td>{{ perc[candidate[0]] }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</article>
 
 	<footer>
-		Copyright ⓒ 2017 - Arkadiusz Tomczak
+		Copyright &#169; 2017 - Arkadiusz Tomczak
 	</footer>
 </body>
 

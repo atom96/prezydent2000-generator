@@ -17,81 +17,90 @@
 </head>
 
 <body>
+	<header>
 	<h1 class="main_title">
 			WYBORY PREZYDENTA RZECZYPOSPOLITEJ POLSKIEJ 2000
 		</h1>
-	<h2 class="sub_title">
+	</header>
+	<section>
+		<h2 class="sub_title">
 			Wyniki w Polsce
 		</h2>
 
-	<section class="columns_wrapper">
+		<div class="columns_wrapper">
 
-		<div id="map_wrapper_wrapper">
-			<div id="map_wrapper">
-				<div id="visualization">
+			<div id="map_wrapper_wrapper">
+				<div id="map_wrapper">
+					<div id="visualization">
+					</div>
 				</div>
 			</div>
+
+			<table class="poll_table">
+				<tbody>
+					<tr>
+						<td>Liczba uprawnionych do głosowania</td>
+						<td class="second_row"> {{ country.get_max_voters() }}</td>
+					</tr>
+					<tr>
+						<td>Liczba wydanych kart</td>
+						<td class="second_row">{{ country.get_given_cards() }}</td>
+					</tr>
+					<tr>
+						<td>Liczba kart wyjętych z urny</td>
+						<td class="second_row">{{ country.get_total_votes() }}</td>
+					</tr>
+					<tr>
+						<td>Liczba ważnych głosów</td>
+						<td class="second_row">{{ country.get_valid_votes() }}</td>
+					</tr>
+					<tr>
+						<td>Liczba wydanych kart</td>
+						<td class="second_row">{{ country.get_invalid_votes() }}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<aside class="attendance">
+				Frekwencja - {{country.get_attendance()}}%
+			</aside>
+
 		</div>
-
-		<table class="poll_table">
-			<tbody>
-				<tr>
-					<td>Liczba uprawnionych do głosowania</td>
-					<td class="second_row"> {{ country.get_max_voters() }}</td>
-				</tr>
-				<tr>
-					<td>Liczba wydanych kart</td>
-					<td class="second_row">{{ country.get_given_cards() }}</td>
-				</tr>
-				<tr>
-					<td>Liczba kart wyjętych z urny</td>
-					<td class="second_row">{{ country.get_total_votes() }}</td>
-				</tr>
-				<tr>
-					<td>Liczba ważnych głosów</td>
-					<td class="second_row">{{ country.get_valid_votes() }}</td>
-				</tr>
-				<tr>
-					<td>Liczba wydanych kart</td>
-					<td class="second_row">{{ country.get_invalid_votes() }}</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<aside class="attendance">
-			Frekwencja - {{country.get_attendance()}}%
-		</aside>
-
 	</section>
 
-	<table class="main_results_table">
-		<thead>
-			<tr>
-				<th> Kandydat </th>
-				<th> Głosy ważne </th>
-				<th colspan="2"> Proporcja(%) </th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for candidate in results %}
+	<article>
+		<h2 class="lower_unit_results">
+				Wyniki poszczególnych kandydatów:
+			</h2>
+		<table class="main_results_table">
+			<thead>
+				<tr>
+					<th> Kandydat </th>
+					<th> Głosy ważne </th>
+					<th colspan="2"> Proporcja(%) </th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for candidate in results %}
 
-			<tr>
-				<td class="name_in_table"> {{candidate[0]}} </td>
-				<td> {{candidate[1]}} </td>
-				<td>
-					<div style="height: 1em; min-width: 8em; width: 100%; background-color: #ADBEFF; display: inline-block;">
-						<div style="background-color:#07577A; width: {{perc[candidate[0]]}}; height: 1em;"></div>
-					</div>
-				</td>
-				<td> {{perc[candidate[0]]}} </td>
-			</tr>
+				<tr>
+					<td class="name_in_table"> {{candidate[0]}} </td>
+					<td> {{candidate[1]}} </td>
+					<td>
+						<div style="height: 1em; min-width: 8em; width: 100%; background-color: #ADBEFF; display: inline-block;">
+							<div style="background-color:#07577A; width: {{perc[candidate[0]]}}; height: 1em;"></div>
+						</div>
+					</td>
+					<td> {{perc[candidate[0]]}} </td>
+				</tr>
 
-			{% endfor %}
-		</tbody>
-	</table>
+				{% endfor %}
+			</tbody>
+		</table>
+	</article>
 
 	<footer>
-		Copyright ⓒ 2017 - Arkadiusz Tomczak
+		Copyright &#169; 2017 - Arkadiusz Tomczak
 	</footer>
 </body>
 

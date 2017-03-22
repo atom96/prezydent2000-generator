@@ -76,10 +76,9 @@ footer {
 
 .main_results_table,
 .main_results_table_with_legend {
-	width: 100%;
-	padding-top: 1em;
-	padding-left: 5em;
-	padding-right: 5em;
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 1em;
 	text-align: center;
 }
 
@@ -89,7 +88,7 @@ footer {
 }
 
 .main_results_table  td,
-.main_results_table th
+.main_results_table th,
 .main_results_table_with_legend td,
 .main_results_table_with_legend th {
 	padding: 1em;
@@ -105,9 +104,18 @@ footer {
 
 .components_table td,
 .components_table th {
-	text-decoration: none;
 	padding: 0.4em;
 	text-align: center;
+}
+
+.components_table a {
+	text-decoration: none;
+	color: black;
+}
+
+.components_table a:hover {
+	text-decoration: underline;
+	color: #03D2D3
 }
 
 .lower_unit_results {

@@ -27,7 +27,10 @@ def parse():
 
         for key, name in candidates_dict.items():
             parts = name.split()
-            candidates_dict[key] = parts[0] + " " + parts[1].title()
+            candidates_dict[key] = ""
+            for i in range(len(parts) - 1):
+                candidates_dict[key] += parts[i] + " "
+            candidates_dict[key] += parts[len(parts) - 1].title()
 
         for row in reader:
             commune = Commune()

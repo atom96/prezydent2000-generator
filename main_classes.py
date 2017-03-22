@@ -89,6 +89,9 @@ class District(AdministrationUnit):
     def __init__(self):
         self.components = {}
         self.name = ""
+    def isLandDistr(self):
+        return len(self.components) == 1 and self.name in self.components.keys()
+
 
 
 class Commune(AdministrationUnit):
