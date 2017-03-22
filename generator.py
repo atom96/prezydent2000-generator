@@ -26,7 +26,7 @@ def generate_district(district, env, color):
     check_and_create_path("build/district")
 
     generate_lower = not district.isLandDistr()
-    
+
     with open("build/district/" + district.get_escaped_name() + ".html", "w") as out:
         out.write(template.render(
             unit=district,
@@ -122,8 +122,9 @@ def generate_country(country, env):
             perc=country.get_percentage()
         ))
 
+    colors = generate_colors(country.get_results().keys())
     for voivodeship in country.components.values():
-        generate_voivodeship(voivodeship, env, generate_colors(country.get_results().keys()))
+        generate_voivodeship(voivodeship, env, colors)
 
 
 def generate():
